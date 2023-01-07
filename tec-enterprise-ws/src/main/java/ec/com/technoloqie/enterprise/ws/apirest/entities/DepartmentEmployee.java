@@ -2,23 +2,20 @@ package ec.com.technoloqie.enterprise.ws.apirest.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  * 
@@ -26,31 +23,13 @@ import javax.validation.constraints.Size;
  *
  */
 @Entity
-@Table(name="EMPLOYEE")
-public class Employee implements Serializable{
-
+@Table(name="DEPARTMENT_EMPLOYEE")
+public class DepartmentEmployee implements Serializable{
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
-	@Column(name="EMPLOYEE_ID",nullable=false, unique=true)
+	@Column(name="DEPEMP_ID",nullable=false, unique=true)
 	private Integer id;
-	
-	@Column(name="AGE")
-    private String age;
-	
-	@Email(message="no es una direccion de correo bien formada")
-	@Column(name="EMAIL",nullable=false, unique=true)
-    private String email;
-	
-	@NotEmpty(message ="no puede estar vacio")
-	@Size(min=4, max=256, message = "debe tener una longitud de entre 4 y 256")
-	@Column(name="NAME",nullable=false, unique=true)
-	private String name;
-	
-	@Column(name="POSITION")
-	private String position;
-	
-	@Column(name="SURNAME")
-	private String surname;
 	
 	@NotEmpty(message ="no puede estar vacio")
 	@Column(name="CREATED_BY",nullable=false)
@@ -71,9 +50,13 @@ public class Employee implements Serializable{
 	@Column(name="STATUS")
 	private Boolean status;
 	
-	@OneToMany(mappedBy="employee", cascade = CascadeType.ALL)
-    private List<DepartmentEmployee> departmentEmployeeCol;
+	@ManyToOne//(fetch=FetchType.LAZY)
+	@JoinColumn(name="EMPLOYEE_ID",nullable=false)
+	private Employee employee;
 	
+	@ManyToOne//(fetch=FetchType.LAZY)
+	@JoinColumn(name="DEPARTMENT_ID", nullable=false)
+	private Department department;
 	
 	@PrePersist 
 	public void prePersist() {
@@ -87,38 +70,6 @@ public class Employee implements Serializable{
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getAge() {
-		return age;
-	}
-
-	public void setAge(String age) {
-		this.age = age;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getPosition() {
-		return position;
-	}
-
-	public void setPosition(String position) {
-		this.position = position;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
 	}
 
 	public String getCreatedBy() {
@@ -160,23 +111,23 @@ public class Employee implements Serializable{
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
 	
 	private static final long serialVersionUID = 1L;
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public List<DepartmentEmployee> getDepartmentEmployeeCol() {
-		return departmentEmployeeCol;
-	}
-
-	public void setDepartmentEmployeeCol(List<DepartmentEmployee> departmentEmployeeCol) {
-		this.departmentEmployeeCol = departmentEmployeeCol;
-	}
 	
 }
