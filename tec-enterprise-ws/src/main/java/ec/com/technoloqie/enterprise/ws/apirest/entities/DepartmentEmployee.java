@@ -35,7 +35,6 @@ public class DepartmentEmployee implements Serializable{
 	@Column(name="CREATED_BY",nullable=false)
 	private String createdBy;
 	
-	@NotNull(message= "no puede estar vacio")
 	@Column(name="CREATED_DATE",nullable=false)
 	@Temporal(TemporalType.DATE)
 	private Date createdDate;
