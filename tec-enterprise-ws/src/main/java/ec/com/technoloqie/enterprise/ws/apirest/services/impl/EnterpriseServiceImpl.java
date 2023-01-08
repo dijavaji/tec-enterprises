@@ -1,49 +1,57 @@
 package ec.com.technoloqie.enterprise.ws.apirest.services.impl;
 
+import java.util.Date;
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import ec.com.technoloqie.enterprise.ws.apirest.dao.IEnterpriseDao;
 import ec.com.technoloqie.enterprise.ws.apirest.entities.Enterprise;
 import ec.com.technoloqie.enterprise.ws.apirest.services.IEnterpriseService;
 
+@Service
 public class EnterpriseServiceImpl implements IEnterpriseService{
+	
+	@Autowired
+	private IEnterpriseDao enterpriseDao;
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Enterprise> getListEnterprises() {
-		// TODO Auto-generated method stub
-		return null;
+		return (List<Enterprise>) enterpriseDao.findAll();
 	}
 
 	@Override
-	public Page<Enterprise> getListEnterprises(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
+	@Transactional
 	public Enterprise createEnterprises(Enterprise enterprise) {
-		// TODO Auto-generated method stub
-		return null;
+		return enterpriseDao.save(enterprise);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Enterprise getEnterpriseId(Integer code) {
-		// TODO Auto-generated method stub
-		return null;
+		return enterpriseDao.findById(code).orElse(null);
 	}
 
 	@Override
+	@Transactional
 	public void deleteEnterprise(Integer code) {
-		// TODO Auto-generated method stub
-		
+		enterpriseDao.deleteById(code);
 	}
 
 	@Override
+	@Transactional
 	public Enterprise updateEnterprise(Enterprise enterprise, int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Enterprise existeCompania = getEnterpriseId(id); //tenemos que comprobar si con la identificación dada existe en la db o no
+		existeCompania.setName(enterprise.getName());
+		existeCompania.setAddress(enterprise.getAddress());
+		existeCompania.setPhone(enterprise.getPhone());
+		existeCompania.setModifiedBy(enterprise.getModifiedBy());
+		existeCompania.setModifiedDate(new Date());
+		enterpriseDao.save(existeCompania);
+		return existeCompania;
 	}
 
 }

@@ -10,7 +10,7 @@ import ec.com.technoloqie.enterprise.ws.apirest.entities.Enterprise;
 public interface IEnterpriseService {
 	
 	List<Enterprise> getListEnterprises();
-	Page<Enterprise> getListEnterprises(Pageable pageable);
+	//Page<Enterprise> getListEnterprises(Pageable pageable);
 	Enterprise createEnterprises(Enterprise enterprise);
 	Enterprise getEnterpriseId(Integer code);
     void deleteEnterprise(Integer code);

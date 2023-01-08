@@ -1,5 +1,6 @@
 package ec.com.technoloqie.enterprise.ws.apirest.controllers;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -106,6 +107,9 @@ public class EnterpriseRestController {
 			companiaActual.setName(enterprise.getName());
 			companiaActual.setAddress(enterprise.getAddress());
 			companiaActual.setPhone(enterprise.getPhone());
+			companiaActual.setModifiedBy(enterprise.getModifiedBy());
+			companiaActual.setModifiedDate(new Date());
+			
 			
 			//clienteActual.setCreateAt(cliente.getCreateAt());
 
