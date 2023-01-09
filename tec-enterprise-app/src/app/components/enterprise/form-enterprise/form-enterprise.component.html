@@ -1,0 +1,47 @@
+<ul class="alert alert-danger" *ngIf="errores?.length > 0">
+  <li *ngFor="let err of errores">
+    {{err}}
+  </li>
+</ul> 
+
+<div class="card bg-dark text-white">
+  <div class="card-header">{{ titulo }}</div>
+  <div class="card-body">
+
+    <form #enterpriseForm="ngForm">
+      <div class="form-group row">
+        <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" [(ngModel)]="enterprise.name" name="nombre"  #nombre="ngModel" required minlength="4"> <!--required minlength="4" -->
+
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="nombre" class="col-form-label col-sm-2">Direccion</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" [(ngModel)]="enterprise.address" name="direccion"  #direccion="ngModel" > <!--required minlength="4" -->
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="nombre" class="col-form-label col-sm-2">Telefono</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" [(ngModel)]="enterprise.phone" name="telefono"  #telefono="ngModel" > <!--required minlength="4" -->
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <button class="btn btn-primary" role="button" (click)='createEnterprise()' *ngIf="!enterprise.id else elseBlock" [disabled]="!enterpriseForm.form.valid" >Crear</button>
+
+          <ng-template #elseBlock>
+            <button class="btn btn-primary" role="button" (click)='updateEnterprise()' [disabled]="!enterpriseForm.form.valid">Editar</button>
+          </ng-template>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

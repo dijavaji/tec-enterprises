@@ -1,0 +1,33 @@
+<div class="card bg-light mb-3" style="max-width: 100%;">
+  <div class="card-header">Compa&#241;ia</div>
+<div class="card-body">
+    <h5 class="card-title">Listado de compa&#241;ias</h5>
+    <div *ngIf="lstEnterprise?.length == 0" class="alert alert-info">
+        No existen registros.
+    </div>
+<table class="table table-striped" *ngIf="lstEnterprise?.length > 0">
+	<thead>
+		<tr>
+			<th scope="col">Nombre</th>
+			<th scope="col">Direccion</th>
+			<th scope="col">Tel&eacute;fono</th>
+			<th scope="col">Estado</th>
+			<th scope="col">Editar</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let enterprise of lstEnterprise">
+			<td>{{enterprise.name}}</td>
+			<td>{{enterprise.address}}</td>
+			<td>{{enterprise.phone}}</td>
+			<td><span class="button is-small btn-primary" *ngIf='!enterprise.activado'>Activo</span></td>
+			<td> <button type="button" name="editar" [routerLink]="['/enterprise/form', enterprise.id]" class="btn btn-primary">editar</button></td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="my-2 text-left">
+        <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/enterprise/form']"> Crear compa&#241;ia</button>
+</div>
+</div>
+</div>

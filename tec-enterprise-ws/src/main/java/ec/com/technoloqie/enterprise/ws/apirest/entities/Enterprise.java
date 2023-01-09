@@ -63,9 +63,9 @@ public class Enterprise implements Serializable{
 	@Column(name="STATUS")
 	private Boolean status;
 	
-    @OneToMany(mappedBy="enterprise", cascade = CascadeType.ALL)
+    /*@OneToMany(mappedBy="enterprise")
     private List<Department> departmentCol;
-    
+    */
     @PrePersist 
 	public void prePersist() {
 		createdDate = new Date();
@@ -144,14 +144,6 @@ public class Enterprise implements Serializable{
 		this.status = status;
 	}
 
-	public List<Department> getDepartmentCol() {
-		return departmentCol;
-	}
-
-	public void setDepartmentCol(List<Department> departmentCol) {
-		this.departmentCol = departmentCol;
-	}
-	
 	private static final long serialVersionUID = 1L;
 
 }
