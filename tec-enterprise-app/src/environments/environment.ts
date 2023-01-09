@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-	urlSrvEnterprises: '/api/enterprises'
+	urlSrvEnterprises: '/api/enterprises',
+	urlSrvEmployee: '/api/employees',
+	urlSrvDepartments: '/api/departments',
 };
 
 /*

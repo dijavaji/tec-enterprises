@@ -19,7 +19,7 @@ public class DepartmentRestController {
 	@Autowired
 	private IDepartmentService departmentService;
 	
-	@GetMapping("/clientes")
+	@GetMapping("/departments")
 	public List<Department> getListDepartments() {
 		return departmentService.getListDepartment();
 	}

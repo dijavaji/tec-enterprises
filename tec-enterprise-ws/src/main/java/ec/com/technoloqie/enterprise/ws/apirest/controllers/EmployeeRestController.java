@@ -102,4 +102,23 @@ public class EmployeeRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
+	@GetMapping("/employees/{id}")
+	public ResponseEntity<?> getemployeeId(@PathVariable Integer id) {
+		Employee employee = null;
+		Map <String, Object> response = new HashMap<>();
+		try {
+			employee = employeeService.getEmployeeId(id);
+		}catch(DataAccessException e) {
+			response.put("mensaje", "Error al momento de consultar empleado");
+			response.put("error", e.getMessage() +" : " + e.getMostSpecificCause());
+			return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		if(employee == null) {
+			response.put("mensaje", "La compania id: ".concat(id.toString().concat(" no existe")));
+			return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND); 
+		}
+		return new ResponseEntity<Employee>(employee, HttpStatus.OK);
+	}
+	
 }

@@ -1,0 +1,37 @@
+<div class="card bg-light mb-3" style="max-width: 100%;">
+  <div class="card-header">Empleados</div>
+<div class="card-body">
+    <h5 class="card-title">Listado de empleados</h5>
+    <div *ngIf="lstEmployee?.length == 0" class="alert alert-info">
+        No existen registros.
+    </div>
+<table class="table table-striped" *ngIf="lstEmployee?.length > 0">
+	<thead>
+		<tr>
+			<th scope="col">Nombre</th>
+			<th scope="col">Email</th>
+			<th scope="col">Surname</th>
+			<th scope="col">Edad</th>
+			<th scope="col">Posicion</th>
+			<th scope="col">Estado</th>
+			<th scope="col">Editar</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let employee of lstEmployee">
+			<td>{{employee.name}}</td>
+			<td>{{employee.email}}</td>
+			<td>{{employee.surname}}</td>
+			<td>{{employee.age}}</td>
+			<td>{{employee.position}}</td>
+			<td><span class="button is-small btn-primary" *ngIf='!employee.activado'>Activo</span></td>
+			<td> <button type="button" name="editar" [routerLink]="['/employees/form', employee.id]" class="btn btn-primary">editar</button></td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="my-2 text-left">
+        <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/employees/form']"> Crear</button>
+</div>
+</div>
+</div>

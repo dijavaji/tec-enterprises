@@ -52,7 +52,6 @@ public class Employee implements Serializable{
 	@Column(name="SURNAME")
 	private String surname;
 	
-	@NotEmpty(message ="no puede estar vacio")
 	@Column(name="CREATED_BY",nullable=false)
 	private String createdBy;
 	

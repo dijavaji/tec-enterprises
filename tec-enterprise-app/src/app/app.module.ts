@@ -5,15 +5,23 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ListEnterpriseComponent } from './components/enterprise/list-enterprise/list-enterprise.component';
+
+//Servicios
 import { EnterpriseService} from './services/enterprise.service';
+import { EmployeeService} from './services/employee.service';
+//componentes
+import { ListEnterpriseComponent } from './components/enterprise/list-enterprise/list-enterprise.component';
 import { FormEnterpriseComponent } from './components/enterprise/form-enterprise/form-enterprise.component';
+import { ListEmployeeComponent } from './components/employee/list-employee/list-employee.component';
+import { FormEmployeeComponent } from './components/employee/form-employee/form-employee.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListEnterpriseComponent,
-    FormEnterpriseComponent
+    FormEnterpriseComponent,
+    ListEmployeeComponent,
+    FormEmployeeComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +29,7 @@ import { FormEnterpriseComponent } from './components/enterprise/form-enterprise
     HttpClientModule,
     FormsModule
   ],
-  providers: [EnterpriseService],
+  providers: [EnterpriseService, EmployeeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
