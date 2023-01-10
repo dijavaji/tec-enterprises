@@ -2,21 +2,17 @@ package ec.com.technoloqie.enterprise.ws.apirest.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -27,7 +23,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name="ENTERPRISE")
 public class Enterprise implements Serializable{
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	@Column(name="ENTERPRISE_ID",nullable=false, unique=true)
@@ -63,9 +59,16 @@ public class Enterprise implements Serializable{
 	@Column(name="STATUS")
 	private Boolean status;
 	
-    /*@OneToMany(mappedBy="enterprise")
-    private List<Department> departmentCol;
-    */
+    //@OneToMany(mappedBy = "enterprise", cascade = CascadeType.ALL)//, cascade = CascadeType.ALL
+	//@JsonManagedReference
+	/*@OneToMany(fetch = FetchType.LAZY	)
+	@JoinColumn(name = "ENTERPRISE_ID")
+	private List<Department> departmentCol;
+    
+	public Enterprise() {
+		this.departmentCol = new ArrayList<>() ;
+	}*/
+	
     @PrePersist 
 	public void prePersist() {
 		createdDate = new Date();
@@ -143,7 +146,7 @@ public class Enterprise implements Serializable{
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
-
-	private static final long serialVersionUID = 1L;
+	
+	private static final long serialVersionUID = -6188780551843450170L;
 
 }

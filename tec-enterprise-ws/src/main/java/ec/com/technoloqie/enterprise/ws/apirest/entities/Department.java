@@ -2,21 +2,23 @@ package ec.com.technoloqie.enterprise.ws.apirest.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * 
@@ -26,7 +28,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name="DEPARTMENT")
 public class Department implements Serializable{
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	@Column(name="DEPARTMENT_ID",nullable=false, unique=true)
@@ -61,13 +63,20 @@ public class Department implements Serializable{
 	@Column(name="STATUS")
 	private Boolean status;
 	
-	//@ManyToOne(fetch=FetchType.LAZY)
-	//@JoinColumn(name="ENTERPRISE_ID",nullable=false)
-	//private Enterprise enterprise;
+	@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "ENTERPRISE_ID", nullable = false)
+	private Enterprise enterprise;
+	//@JsonBackReference
+	/*@ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "ENTERPRISE_ID", nullable = false)
+	//@JsonIgnore
+	private Enterprise enterprise;
 	
-	@OneToMany(mappedBy="department", cascade = CascadeType.ALL)
+	/*@JsonManagedReference	
+	@OneToMany(mappedBy="department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<DepartmentEmployee> departmentEmployeeCol;
-	
+	*/
 	@PrePersist 
 	public void prePersist() {
 		createdDate = new Date();
@@ -145,15 +154,22 @@ public class Department implements Serializable{
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
-	
-	private static final long serialVersionUID = 1L;
 
-	public List<DepartmentEmployee> getDepartmentEmployeeCol() {
+	private static final long serialVersionUID = 1500048612837498071L;
+	public Enterprise getEnterprise() {
+		return enterprise;
+	}
+
+	public void setEnterprise(Enterprise enterprise) {
+		this.enterprise = enterprise;
+	}
+
+	/*public List<DepartmentEmployee> getDepartmentEmployeeCol() {
 		return departmentEmployeeCol;
 	}
 
 	public void setDepartmentEmployeeCol(List<DepartmentEmployee> departmentEmployeeCol) {
 		this.departmentEmployeeCol = departmentEmployeeCol;
-	}
+	}*/
 
 }

@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 //Servicios
 import { EnterpriseService} from './services/enterprise.service';
 import { EmployeeService} from './services/employee.service';
+import { DepartmentService} from './services/department.service';
 //componentes
 import { ListEnterpriseComponent } from './components/enterprise/list-enterprise/list-enterprise.component';
 import { FormEnterpriseComponent } from './components/enterprise/form-enterprise/form-enterprise.component';
@@ -33,7 +34,7 @@ import { FormDepartmentComponent } from './components/department/form-department
     HttpClientModule,
     FormsModule
   ],
-  providers: [EnterpriseService, EmployeeService],
+  providers: [EnterpriseService, EmployeeService, DepartmentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
