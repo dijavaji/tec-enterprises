@@ -22,4 +22,36 @@ export class DepartmentService {
 	getDepartment(id: number): Observable<Department> {
     	return this.http.get<Department>(`${this.baseUrl}/${id}`);
   }
+
+  createDepartment(dept: Department):Observable <Department>{
+		return this.http.post(this.baseUrl, dept, { headers: this.httpHeaders }).pipe(
+		map((response: any) => response.enterprise as Department),
+		catchError(e => {
+
+			if(e.status == 400){
+				return throwError(e);				
+			}
+			console.log("se crea exeption");
+			console.error(e.error.mensaje);
+			//swal(e.error.mensaje, e.error.error, 'error');
+			return throwError(e);
+		})
+		);
+	}
+
+	updateDepartment(dept: Department): Observable<any>{
+  	//return this.http.put<Cliente>(`${this.urlEndPoint}/${cliente.id}`, cliente, {headers: this.httpHeaders})
+  	 return this.http.put<any>(`${this.baseUrl}/${dept.id}`, dept, { headers: this.httpHeaders }).pipe(
+      catchError(e => {
+
+        if (e.status == 400) {
+          return throwError(e);
+        }
+
+        console.error(e.error.mensaje);
+        //swal(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
+  }
 }

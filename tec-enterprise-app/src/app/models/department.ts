@@ -1,3 +1,5 @@
+import {Enterprise} from './enterprise';
+
 export class Department {
 	id?: number;
 	name?: string;
@@ -8,4 +10,10 @@ export class Department {
 	modifiedBy= 'user-web';
 	modifiedDate?: string;
 	status?:boolean;
+	enterprise?:Enterprise;
+
+	//constructor 
+   constructor() { 
+      this.enterprise = new Enterprise; 
+   }  
 }
